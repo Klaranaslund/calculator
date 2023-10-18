@@ -4,11 +4,12 @@ let parsedFirst = 0;
 let parsedSecond = 0;
 let operatorIsClicked = false;
 let operator = '';
+let result = 0;
 const displayTop = document.querySelector('.displayTop');
 const numberArray = {};
 
 function setUpNumbers(){
-    for (let i = 1; i <= 9; i++) {
+    for (let i = 0; i <= 9; i++) {
         numberArray[i] = document.querySelector(`#btn-${i}`);
         numberArray[i].addEventListener('click', () => {
         display(i);
@@ -28,7 +29,7 @@ function handleNumber(number){
 
 
 function display(toBeDisplayed){
-    displayTop.textContent = toBeDisplayed;
+    displayTop.textContent += toBeDisplayed;
 }
 
 function setUpOperators(){
@@ -56,7 +57,8 @@ function handleOperatorClick(op){
 
 
 function add(num1, num2){
-    return num1 + num2;
+    result = num1 + num2;
+    display(" = " + result);
 }
 function subtract(num1, num2){
     return num1 - num2;
@@ -88,16 +90,16 @@ equals.addEventListener('click', () => {
 function operate(firstNum, operator, secondNum){
     switch(operator){
         case '+': 
-            return add(firstNum, secondNum);
+            return add(parsedFirst, parsedSecond);
         
         case '-': 
-            return subtract(firstNum,secondNum);
+            return subtract(parsedFirst, parsedSecond);
 
         case '/':
-            return divide(firstNum,secondNum);
+            return divide(parsedFirst, parsedSecond);
         
         case '*':
-            return multiply(firstNum,secondNum);
+            return multiply(parsedFirst, parsedSecond);
     }
     operatorIsClicked = false;
    
