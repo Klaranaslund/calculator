@@ -61,13 +61,16 @@ function add(num1, num2){
     display(" = " + result);
 }
 function subtract(num1, num2){
-    return num1 - num2;
+    result = num1 - num2;
+    display(" = " + result);
 }
 function divide(num1, num2){
-    return num1 / num2;
+    result = num1 / num2;
+    display(" = " + result);
 }
 function multiply(num1, num2){
-    return num1 * num2;
+    result = num1 * num2;
+    display(" = " + result);
 }
 
 function parseNumbers(){
