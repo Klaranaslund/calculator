@@ -1,3 +1,12 @@
+/**TO DO
+ * Fixa alla onödiga variabler och byt till rimligare namn
+ * Kolla upp strängar kontra arrayer i javascript för firstNum och secondNum
+ * Fixa clear-button
+ * Fixa så att det går att kedja uttryck
+ * Fixa så att resultatet visas i övre delen av screen och stannar där när nya grejer matas in
+ */
+
+
 let firstNum = [];
 let secondNum = [];
 let parsedFirst = 0;
@@ -17,7 +26,6 @@ function setUpNumbers(){
         });
     }
 }
-
 
 function handleNumber(number){
     if (!operatorIsClicked){
@@ -48,10 +56,12 @@ function setUpOperators(){
 
 
 function handleOperatorClick(op){
+    if (op == 'clear'){
+        return;
+    }else
     display(op);
     operator = op;
     operatorIsClicked = true;
-    console.log(op);
     }
 
 
@@ -74,23 +84,36 @@ function multiply(num1, num2){
 }
 
 function parseNumbers(){
-    console.log(firstNum);
     parsedFirst = parseInt(firstNum.join(''));
-    console.log(parsedFirst);
     parsedSecond = parseInt(secondNum.join(''));
-    console.log(parsedSecond);
 }
 
 const equals = document.querySelector('#btn-equals');
 equals.addEventListener('click', () => {
-    parseNumbers(); //concatenate and parse array of numbers into one number
+    parseNumbers();
     operate(parsedFirst,operator,parsedSecond);
-    console.log(parsedFirst+"="+parsedSecond);
 }
 );
 
 
-function operate(firstNum, operator, secondNum){
+const clearBtn = document.querySelector('#btn-clear')
+clearBtn.onclick = () => clear();
+
+/** Clear all variables and textcontent for screen, allowing
+ * new calculations to be made
+ */
+function clear(){
+ firstNum = [];
+ secondNum = [];
+ parsedFirst = 0;
+ parsedSecond = 0;
+ operatorIsClicked = false;
+ operator = '';
+ result = 0;
+ displayTop.textContent = '';
+}
+
+function operate(parsedFirst, operator, parsedSecond){
     switch(operator){
         case '+': 
             return add(parsedFirst, parsedSecond);
@@ -101,7 +124,7 @@ function operate(firstNum, operator, secondNum){
         case '/':
             return divide(parsedFirst, parsedSecond);
         
-        case '*':
+        case 'x':
             return multiply(parsedFirst, parsedSecond);
     }
     operatorIsClicked = false;
