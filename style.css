@@ -1,3 +1,10 @@
+/*To do:
+Fixa flex i display
+Fixa behållare till knappar + skuggor
+Fixa skugga till miniräknare i sig sj
+Kolla om ngt är onödigt/upprepande
+*/
+
 body{
     display: flex;
     align-items: center;
@@ -22,6 +29,7 @@ body{
 .display{
     padding: 50px;
     background-color: white;
+    flex-shrink: 0;
 }
 
 .buttonContainer{

@@ -28,9 +28,15 @@ function setUpNumbers(){
 }
 
 function handleNumber(number){
-    if (!operatorIsClicked){
+    if (!operatorIsClicked && secondNum.length === 0){
         firstNum.push(number);
         console.log("first array:" + firstNum);
+    }else if(!operatorIsClicked && secondNum.length != 0){
+        firstNum = result;
+        secondNum.push(number);
+        console.log("first array:" + firstNum);
+
+    console.log("second array:" + secondNum);
     }else secondNum.push(number);
     console.log("second array:" + secondNum);
 }
@@ -83,15 +89,14 @@ function multiply(num1, num2){
     display(" = " + result);
 }
 
-function parseNumbers(){
-    parsedFirst = parseInt(firstNum.join(''));
-    parsedSecond = parseInt(secondNum.join(''));
+function parseNumbers(numberToParse){
+    return Number(numberToParse.join(''));
+    //parsedSecond = Number(secondNum.join(''));
 }
 
 const equals = document.querySelector('#btn-equals');
 equals.addEventListener('click', () => {
-    parseNumbers();
-    operate(parsedFirst,operator,parsedSecond);
+    operate(parseNumbers(firstNum),operator,parseNumbers(secondNum));
 }
 );
 
@@ -105,8 +110,6 @@ clearBtn.onclick = () => clear();
 function clear(){
  firstNum = [];
  secondNum = [];
- parsedFirst = 0;
- parsedSecond = 0;
  operatorIsClicked = false;
  operator = '';
  result = 0;
