@@ -9,8 +9,6 @@
 
 let firstNum = [];
 let secondNum = [];
-let parsedFirst = 0;
-let parsedSecond = 0;
 let operatorIsClicked = false;
 let operator = '';
 let result = 0;
@@ -62,9 +60,6 @@ function setUpOperators(){
 
 
 function handleOperatorClick(op){
-    if (op == 'clear'){
-        return;
-    }else
     display(op);
     operator = op;
     operatorIsClicked = true;
@@ -91,9 +86,10 @@ function multiply(num1, num2){
 
 function parseNumbers(numberToParse){
     return Number(numberToParse.join(''));
-    //parsedSecond = Number(secondNum.join(''));
 }
 
+//Kan ev stoppa in logiken direkt i funktionsanrop och ta bort parseNumbers, tkr
+//dock för nuvarande att det är snyggare att dela upp det pga läslighet.
 const equals = document.querySelector('#btn-equals');
 equals.addEventListener('click', () => {
     operate(parseNumbers(firstNum),operator,parseNumbers(secondNum));
