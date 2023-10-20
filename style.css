@@ -21,15 +21,15 @@ body{
 .calculator{
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
     height: 500px;
     width: 400px;
+    box-shadow: 10px 10px 10px #25252588;
 }
 
 .display{
     padding: 50px;
     background-color: white;
-    flex-shrink: 0;
+    font-size: 25px;
 }
 
 .buttonContainer{

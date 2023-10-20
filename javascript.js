@@ -2,7 +2,9 @@
  * Fixa alla onödiga variabler och byt till rimligare namn
  * Kolla upp strängar kontra arrayer i javascript för firstNum och secondNum
  * 
- * fixa bugg där resultatet är konstigt efter = -tecken.
+ * Fixa bugg där resultatet är konstigt efter = -tecken i vissa fall.
+ * Fixa så att man inte kan dela med 0 (felmeddelande)
+ * Fixa avrundningar till rimligt antal
  */
 
 
@@ -10,7 +12,7 @@ let firstNum = [];
 let secondNum = [];
 let operatorIsClicked = false; //lite fult
 let operator = '';
-const displayTop = document.querySelector('.displayTop'); //lite fult
+const displayTop = document.querySelector('.display'); //lite fult
 
 /** Selects and assigns the numeric buttons eventlisteners.
  */
@@ -45,25 +47,30 @@ function handleNumberClick(number){
     display(number);
     if (!operatorIsClicked){
         firstNum.push(number);
+        console.log(" firstnum: " + firstNum + " secondnum: " + secondNum);
 
     }else secondNum.push(number);
 }
 
-/** Display operator when clicked, assign its value to global variable.
+/** Display operator when clicked.
  * If both firstnum and secondnum contains values, operate and reset 
  * the arrays. Set flag for clicked operator to true.
+ * Uptade global variable operator.
 */
-function handleOperatorClick(op){
-    display(op);
-    operator = op;
-    if(firstNum != 0 && secondNum != 0){
-        operate(parseNumbers(firstNum),operator,parseNumbers(secondNum));
-        firstNum = [];
+function handleOperatorClick(op) {
+    display(' ' + op + ' ');
+
+    if (firstNum.length !== 0 && secondNum.length !== 0) {
+        operate(parseNumbers(firstNum), operator, parseNumbers(secondNum));
+        firstNum = [result];
         secondNum = [];
-        firstNum.push(result);
+    } else if (firstNum.length !== 0) {
+        operatorIsClicked = true;
     }
-    operatorIsClicked = true;
-    }
+
+    operator = op;
+}
+
 
 function display(toBeDisplayed){
     displayTop.textContent += toBeDisplayed;
@@ -91,19 +98,19 @@ function parseNumbers(numberToParse){
 }
 
 
-function operate(parsedFirst, operator, parsedSecond){
+function operate(first, operator, second){
     switch(operator){
         case '+': 
-            return add(parsedFirst, parsedSecond);
+            return add(first, second);
         
         case '-': 
-            return subtract(parsedFirst, parsedSecond);
+            return subtract(first, second);
 
         case '/':
-            return divide(parsedFirst, parsedSecond);
+            return divide(first, second);
         
         case 'x':
-            return multiply(parsedFirst, parsedSecond);
+            return multiply(first, second);
     }
     operatorIsClicked = false;
 }
