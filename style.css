@@ -10,7 +10,7 @@ body{
     align-items: center;
     flex-direction: column;
     font-family: 'Courier New', Courier, monospace;
-    background-color: rgb(218, 96, 117);
+    background-color: rgb(226, 175, 184);
 }
 .header{
     display: flex;
@@ -20,25 +20,43 @@ body{
 }
 .calculator{
     display: flex;
+    flex: 1;
     flex-direction: column;
-    height: 500px;
     width: 400px;
     box-shadow: 10px 10px 10px #25252588;
+    background-color:  rgb(212, 143, 155);;
 }
 
 .display{
-    padding: 50px;
     background-color: white;
     font-size: 25px;
-}
-
-.buttonContainer{
+    margin: 10px 10px 10px 10px;
+    padding: 0px 10px 0px 10px;
+    height: 130px;
     display: flex;
-    flex: 1;
-    flex-wrap: wrap;
+    justify-content: end;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: inset 0 0 10px 0px #bfbfbf; 
 }
 
-button{
-flex: 0 0 25%;
-border-radius: 8px;
+.buttonContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly; 
+    padding: 10px 0px 10px 0px;
+}
+
+button {
+    flex: 0 0 23%; /* Adjusted to allow for a small gap between buttons */
+    margin: 1%; /* Add a small margin for better spacing */
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 20px;
+}
+
+
+.footer {
+    padding: 50px;
+    font-size: 20px;
 }
