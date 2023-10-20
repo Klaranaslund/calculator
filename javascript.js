@@ -11,32 +11,27 @@ let firstNum = [];
 let secondNum = [];
 let operatorIsClicked = false;
 let operator = '';
-let result = 0;
 const displayTop = document.querySelector('.displayTop');
-const numberArray = {};
 
 function setUpNumbers(){
+const numberArray = {};
     for (let i = 0; i <= 9; i++) {
         numberArray[i] = document.querySelector(`#btn-${i}`);
         numberArray[i].addEventListener('click', () => {
-        display(i);
-        handleNumber(i);
+            display(i);
+            handleNumber(i);
         });
     }
 }
 
 function handleNumber(number){
-    if (!operatorIsClicked && secondNum.length === 0){
+    if (!operatorIsClicked){
         firstNum.push(number);
-        console.log("first array:" + firstNum);
-    }else if(!operatorIsClicked && secondNum.length != 0){
-        firstNum = result;
-        secondNum.push(number);
-        console.log("first array:" + firstNum);
+        console.log("Array 1 är nu:" + firstNum)
 
-    console.log("second array:" + secondNum);
     }else secondNum.push(number);
-    console.log("second array:" + secondNum);
+    console.log("Array 2 är nu:" + secondNum)
+
 }
 
 
@@ -62,6 +57,14 @@ function setUpOperators(){
 function handleOperatorClick(op){
     display(op);
     operator = op;
+    if(firstNum != 0 && secondNum != 0){
+        operate(parseNumbers(firstNum),operator,parseNumbers(secondNum));
+        firstNum = [];
+        secondNum = [];
+        firstNum.push(result);
+        console.log("Array 1 är efter kedjning" + firstNum)
+
+    }
     operatorIsClicked = true;
     }
 
@@ -69,19 +72,15 @@ function handleOperatorClick(op){
 
 function add(num1, num2){
     result = num1 + num2;
-    display(" = " + result);
 }
 function subtract(num1, num2){
     result = num1 - num2;
-    display(" = " + result);
 }
 function divide(num1, num2){
     result = num1 / num2;
-    display(" = " + result);
 }
 function multiply(num1, num2){
     result = num1 * num2;
-    display(" = " + result);
 }
 
 function parseNumbers(numberToParse){
@@ -93,24 +92,12 @@ function parseNumbers(numberToParse){
 const equals = document.querySelector('#btn-equals');
 equals.addEventListener('click', () => {
     operate(parseNumbers(firstNum),operator,parseNumbers(secondNum));
+    console.log("Array 1 vid =:" + firstNum)
+    console.log("Array 2 vid =:" + secondNum)
+
+    display(" = " + result);
 }
 );
-
-
-const clearBtn = document.querySelector('#btn-clear')
-clearBtn.onclick = () => clear();
-
-/** Clear all variables and textcontent for screen, allowing
- * new calculations to be made
- */
-function clear(){
- firstNum = [];
- secondNum = [];
- operatorIsClicked = false;
- operator = '';
- result = 0;
- displayTop.textContent = '';
-}
 
 function operate(parsedFirst, operator, parsedSecond){
     switch(operator){
@@ -127,7 +114,21 @@ function operate(parsedFirst, operator, parsedSecond){
             return multiply(parsedFirst, parsedSecond);
     }
     operatorIsClicked = false;
-   
+}
+
+const clearBtn = document.querySelector('#btn-clear')
+clearBtn.onclick = () => clear();
+
+/** Clear all variables and textcontent for screen, allowing
+ * new calculations to be made
+ */
+function clear(){
+ firstNum = [];
+ secondNum = [];
+ operatorIsClicked = false;
+ operator = '';
+ result = 0;
+ displayTop.textContent = '';
 }
 
 function runCalculator(){
