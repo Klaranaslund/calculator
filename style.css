@@ -1,10 +1,3 @@
-/*To do:
-Fixa flex i display
-Fixa behållare till knappar + skuggor
-Fixa skugga till miniräknare i sig sj
-Kolla om ngt är onödigt/upprepande
-*/
-
 body{
     display: flex;
     align-items: center;
@@ -12,49 +5,51 @@ body{
     font-family: 'Courier New', Courier, monospace;
     background-color: rgb(226, 175, 184);
 }
+
 .header{
     display: flex;
     justify-content: center;
-    padding: 50px;
-    font-size: 48px;
+    padding: 55px;
+    font-size: 68px;
+    color: white;
+    font-weight: 900;
 }
+
 .calculator{
     display: flex;
-    flex: 1;
     flex-direction: column;
     width: 400px;
     box-shadow: 10px 10px 10px #25252588;
-    background-color:  rgb(212, 143, 155);;
+    background-color:  rgb(212, 143, 155);
 }
 
-.display{
+.display {
     background-color: white;
     font-size: 25px;
-    margin: 10px 10px 10px 10px;
-    padding: 0px 10px 0px 10px;
+    margin: 10px;
+    padding: 0px 10px;
     height: 130px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     border-radius: 8px;
-    box-shadow: inset 0 0 10px 0px #bfbfbf; 
+    box-shadow: inset 0 0 10px 0px #bfbfbf;
 }
 
 .buttonContainer {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly; 
-    padding: 10px 0px 10px 0px;
+    justify-content: space-evenly;
+    padding: 10px;
 }
 
 button {
-    flex: 0 0 23%; /* Adjusted to allow for a small gap between buttons */
-    margin: 1%; /* Add a small margin for better spacing */
+    flex: 0 0 23%; 
+    margin: 1%; 
     border-radius: 8px;
     padding: 20px;
     font-size: 20px;
 }
-
 
 .footer {
     padding: 50px;
