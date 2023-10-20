@@ -1,59 +1,58 @@
 /**TO DO
  * Fixa alla onödiga variabler och byt till rimligare namn
  * Kolla upp strängar kontra arrayer i javascript för firstNum och secondNum
- * Fixa clear-button
- * Fixa så att det går att kedja uttryck
- * Fixa så att resultatet visas i övre delen av screen och stannar där när nya grejer matas in
+ * 
+ * fixa bugg där resultatet är konstigt efter = -tecken.
  */
 
 
 let firstNum = [];
 let secondNum = [];
-let operatorIsClicked = false;
+let operatorIsClicked = false; //lite fult
 let operator = '';
-const displayTop = document.querySelector('.displayTop');
+const displayTop = document.querySelector('.displayTop'); //lite fult
 
+/** Selects and assigns the numeric buttons eventlisteners.
+ */
 function setUpNumbers(){
 const numberArray = {};
     for (let i = 0; i <= 9; i++) {
         numberArray[i] = document.querySelector(`#btn-${i}`);
         numberArray[i].addEventListener('click', () => {
-            display(i);
-            handleNumber(i);
+            handleNumberClick(i);
         });
     }
 }
 
-function handleNumber(number){
+/** Selects and assigns the operator buttons eventlisteners.
+ */
+function setUpOperators(){
+    document.querySelector('#btn-add').onclick = () => handleOperatorClick('+');
+    document.querySelector('#btn-div').onclick = () => handleOperatorClick('/');
+    document.querySelector('#btn-sub').onclick = () => handleOperatorClick('-');
+    document.querySelector('#btn-mult').onclick = () => handleOperatorClick('x');
+    document.querySelector('#btn-clear').onclick = () => clear();
+    
+    document.querySelector('#btn-equals').addEventListener('click', () => {
+    operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); // fult att ha med den här pga annorlunda? samtidigt fult att ha för sig sj?
+    display(" = " + result);});
+}
+
+/** Display number when clicked. If an operator is not clicked, push
+ * number into firstNum-array. Else, push number into secondNum-array.
+*/
+function handleNumberClick(number){
+    display(number);
     if (!operatorIsClicked){
         firstNum.push(number);
-        console.log("Array 1 är nu:" + firstNum)
 
     }else secondNum.push(number);
-    console.log("Array 2 är nu:" + secondNum)
-
 }
 
-
-function display(toBeDisplayed){
-    displayTop.textContent += toBeDisplayed;
-}
-
-function setUpOperators(){
-        const addBtn = document.querySelector('#btn-add');
-        addBtn.onclick = () => handleOperatorClick('+');
-
-        const divideBtn = document.querySelector('#btn-div');
-        divideBtn.onclick = () => handleOperatorClick('/');
-
-        const subtractBtn = document.querySelector('#btn-sub')
-        subtractBtn.onclick = () => handleOperatorClick('-');
-        
-        const multiplyBtn = document.querySelector('#btn-mult')
-        multiplyBtn.onclick = () => handleOperatorClick('x');
-}
-
-
+/** Display operator when clicked, assign its value to global variable.
+ * If both firstnum and secondnum contains values, operate and reset 
+ * the arrays. Set flag for clicked operator to true.
+*/
 function handleOperatorClick(op){
     display(op);
     operator = op;
@@ -62,14 +61,16 @@ function handleOperatorClick(op){
         firstNum = [];
         secondNum = [];
         firstNum.push(result);
-        console.log("Array 1 är efter kedjning" + firstNum)
-
     }
     operatorIsClicked = true;
     }
 
+function display(toBeDisplayed){
+    displayTop.textContent += toBeDisplayed;
+}
 
-
+/** Functions to conduct calculations.
+*/
 function add(num1, num2){
     result = num1 + num2;
 }
@@ -83,21 +84,12 @@ function multiply(num1, num2){
     result = num1 * num2;
 }
 
+//Kan ev stoppa in logiken direkt i funktionsanrop och ta bort parseNumbers, tkr
+//dock för nuvarande att det är snyggare att dela upp det pga läslighet.
 function parseNumbers(numberToParse){
     return Number(numberToParse.join(''));
 }
 
-//Kan ev stoppa in logiken direkt i funktionsanrop och ta bort parseNumbers, tkr
-//dock för nuvarande att det är snyggare att dela upp det pga läslighet.
-const equals = document.querySelector('#btn-equals');
-equals.addEventListener('click', () => {
-    operate(parseNumbers(firstNum),operator,parseNumbers(secondNum));
-    console.log("Array 1 vid =:" + firstNum)
-    console.log("Array 2 vid =:" + secondNum)
-
-    display(" = " + result);
-}
-);
 
 function operate(parsedFirst, operator, parsedSecond){
     switch(operator){
@@ -116,9 +108,6 @@ function operate(parsedFirst, operator, parsedSecond){
     operatorIsClicked = false;
 }
 
-const clearBtn = document.querySelector('#btn-clear')
-clearBtn.onclick = () => clear();
-
 /** Clear all variables and textcontent for screen, allowing
  * new calculations to be made
  */
@@ -127,7 +116,6 @@ function clear(){
  secondNum = [];
  operatorIsClicked = false;
  operator = '';
- result = 0;
  displayTop.textContent = '';
 }
 
