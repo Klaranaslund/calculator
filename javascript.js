@@ -2,7 +2,6 @@ let firstNum = [];
 let secondNum = [];
 let operator = '';
 let operatorIsClicked = false; 
-let dividedByZero = false;
 
 /** Selects and assigns the numeric buttons eventlisteners.
  */
@@ -61,7 +60,6 @@ function handleOperatorClick(op) {
     } else if (firstNum.length !== 0) {
         operatorIsClicked = true;
     }
-
     operator = op;
 }
 
@@ -92,7 +90,7 @@ function parseNumbers(numberToParse){
 }
 
 function snarkOnZeroDivision() {
-    alert("Plz do not divide by zero you absolute troglodyte :)");
+    alert("Pls do not divide by zero, you absolute troglodyte :)");
     clear();
 }
 
@@ -121,7 +119,6 @@ function clear(){
  secondNum = [];
  operatorIsClicked = false;
  operator = '';
- dividedByZero = false;
  document.querySelector('.display').textContent = '';
 }
 
