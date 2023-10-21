@@ -1,7 +1,8 @@
 let firstNum = [];
 let secondNum = [];
-let operatorIsClicked = false; 
 let operator = '';
+let operatorIsClicked = false; 
+let dividedByZero = false;
 
 /** Selects and assigns the numeric buttons eventlisteners.
  */
@@ -25,8 +26,12 @@ function setUpOperators(){
     document.querySelector('#btn-clear').onclick = () => clear();
     
     document.querySelector('#btn-equals').addEventListener('click', () => {
-    operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); 
-    display(" = " + result);});
+        if (operator === '/' && parseNumbers(secondNum) === 0) {
+            snarkOnZeroDivision();
+            return;
+        }else 
+        operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); 
+        display(" = " + result);});
 }
 
 /** Display number when clicked. If an operator is not clicked, push
@@ -86,7 +91,7 @@ function parseNumbers(numberToParse){
     return Number(numberToParse.join(''));
 }
 
-function snarkingOnZero() {
+function snarkOnZeroDivision() {
     alert("Plz do not divide by zero you absolute troglodyte :)");
     clear();
 }
@@ -100,8 +105,7 @@ function operate(first, operator, second){
             return subtract(first, second);
 
         case '/':
-            if(second === 0)return snarkingOnZero();
-            else return divide(first, second);
+             return divide(first, second);
         
         case 'x':
             return multiply(first, second);
@@ -117,6 +121,7 @@ function clear(){
  secondNum = [];
  operatorIsClicked = false;
  operator = '';
+ dividedByZero = false;
  document.querySelector('.display').textContent = '';
 }
 
