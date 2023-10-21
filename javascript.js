@@ -3,7 +3,8 @@ let secondNum = [];
 let operator = '';
 let operatorIsClicked = false; 
 
-/** Selects and assigns the numeric buttons eventlisteners.
+/** 
+ * Selects and assigns the numeric buttons eventlisteners.
  */
 function setUpNumbers(){
 const numberArray = {};
@@ -15,7 +16,8 @@ const numberArray = {};
     }
 }
 
-/** Selects and assigns the operator buttons eventlisteners.
+/** 
+ * Selects and assigns the operator buttons functions for onclick.
  */
 function setUpOperators(){
     document.querySelector('#btn-add').onclick = () => handleOperatorClick('+');
@@ -24,21 +26,10 @@ function setUpOperators(){
     document.querySelector('#btn-mult').onclick = () => handleOperatorClick('x');
     document.querySelector('#btn-clear').onclick = () => clear();
     document.querySelector('#btn-equals').onclick = () => handleEquals();
-
-}
-function handleEquals(){
-    if (operator === '/' && parseNumbers(secondNum) === 0) {
-        snarkOnZeroDivision();
-        return;
-    }else 
-    operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); 
-    display(" = " + result.toFixed(1));
 }
 
-
-
-
-/** Display number when clicked. If an operator is not clicked, push
+/** 
+ * Display number when clicked. If an operator is not clicked, push
  * number into firstNum-array. Else, push number into secondNum-array.
 */
 function handleNumberClick(number){
@@ -50,10 +41,9 @@ function handleNumberClick(number){
     }else secondNum.push(number);
 }
 
-/** Display operator when clicked.
- * If both firstnum and secondnum contains values, operate and reset 
- * the arrays. Set flag for clicked operator to true.
- * Uptade global variable operator.
+/** 
+ * If both firstnum and secondnum contains values, operate and save result in firstnum to allow chaining,
+ * reset secondnum to empty array.
 */
 function handleOperatorClick(op) {
     display(' ' + op + ' ');
@@ -68,13 +58,23 @@ function handleOperatorClick(op) {
     operator = op;
 }
 
+/** 
+ * If zero division is performed, snark. Otherwise operate and display result,
+ * rounded to one decimal if result is float.
+*/
+function handleEquals(){
+    if (operator === '/' && parseNumbers(secondNum) === 0) {
+        snarkOnZeroDivision();
+        return;
+    }else 
+    operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); 
+    display(" = " + (!Number.isInteger(result) ? result.toFixed(1) : result));
+}
 
 function display(toBeDisplayed){
    document.querySelector('.display').textContent += toBeDisplayed;
 }
 
-/** Functions to conduct calculations.
-*/
 function add(num1, num2){
     result = num1 + num2;
 }
@@ -88,12 +88,13 @@ function multiply(num1, num2){
     result = num1 * num2;
 }
 
-//Kan ev stoppa in logiken direkt i funktionsanrop och ta bort parseNumbers, tkr
-//dock för nuvarande att det är snyggare att dela upp det pga läslighet.
 function parseNumbers(numberToParse){
     return Number(numberToParse.join(''));
 }
 
+/**
+ * Just don't.
+ */
 function snarkOnZeroDivision() {
     alert("Pls do not divide by zero, you absolute troglodyte :)");
     clear();
@@ -116,9 +117,6 @@ function operate(first, operator, second){
     operatorIsClicked = false;
 }
 
-/** Clear all variables and textcontent for screen, allowing
- * new calculations to be made
- */
 function clear(){
  firstNum = [];
  secondNum = [];
@@ -126,6 +124,7 @@ function clear(){
  operator = '';
  document.querySelector('.display').textContent = '';
 }
+
 
 function runCalculator(){
     setUpNumbers();
