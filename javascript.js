@@ -23,15 +23,20 @@ function setUpOperators(){
     document.querySelector('#btn-sub').onclick = () => handleOperatorClick('-');
     document.querySelector('#btn-mult').onclick = () => handleOperatorClick('x');
     document.querySelector('#btn-clear').onclick = () => clear();
-    
-    document.querySelector('#btn-equals').addEventListener('click', () => {
-        if (operator === '/' && parseNumbers(secondNum) === 0) {
-            snarkOnZeroDivision();
-            return;
-        }else 
-        operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); 
-        display(" = " + result);});
+    document.querySelector('#btn-equals').onclick = () => handleEquals();
+
 }
+function handleEquals(){
+    if (operator === '/' && parseNumbers(secondNum) === 0) {
+        snarkOnZeroDivision();
+        return;
+    }else 
+    operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); 
+    display(" = " + result);
+}
+
+
+
 
 /** Display number when clicked. If an operator is not clicked, push
  * number into firstNum-array. Else, push number into secondNum-array.
