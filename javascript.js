@@ -32,7 +32,7 @@ function handleEquals(){
         return;
     }else 
     operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); 
-    display(" = " + result);
+    display(" = " + result.toFixed(1));
 }
 
 
