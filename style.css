@@ -21,6 +21,7 @@ body{
     width: 400px;
     box-shadow: 10px 10px 10px #25252588;
     background-color:  rgb(212, 143, 155);
+    border-radius: 6px;
 }
 
 .display {

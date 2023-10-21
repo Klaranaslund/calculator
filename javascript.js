@@ -1,8 +1,7 @@
 let firstNum = [];
 let secondNum = [];
-let operatorIsClicked = false; //lite fult
+let operatorIsClicked = false; 
 let operator = '';
-const displayTop = document.querySelector('.display'); //lite fult
 
 /** Selects and assigns the numeric buttons eventlisteners.
  */
@@ -26,7 +25,7 @@ function setUpOperators(){
     document.querySelector('#btn-clear').onclick = () => clear();
     
     document.querySelector('#btn-equals').addEventListener('click', () => {
-    operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); // fult att ha med den här pga annorlunda? samtidigt fult att ha för sig sj?
+    operate(parseNumbers(firstNum),operator,parseNumbers(secondNum)); 
     display(" = " + result);});
 }
 
@@ -63,7 +62,7 @@ function handleOperatorClick(op) {
 
 
 function display(toBeDisplayed){
-    displayTop.textContent += toBeDisplayed;
+   document.querySelector('.display').textContent += toBeDisplayed;
 }
 
 /** Functions to conduct calculations.
@@ -81,6 +80,8 @@ function multiply(num1, num2){
     result = num1 * num2;
 }
 
+//Kan ev stoppa in logiken direkt i funktionsanrop och ta bort parseNumbers, tkr
+//dock för nuvarande att det är snyggare att dela upp det pga läslighet.
 function parseNumbers(numberToParse){
     return Number(numberToParse.join(''));
 }
@@ -116,7 +117,7 @@ function clear(){
  secondNum = [];
  operatorIsClicked = false;
  operator = '';
- displayTop.textContent = '';
+ document.querySelector('.display').textContent = '';
 }
 
 function runCalculator(){
