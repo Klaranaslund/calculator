@@ -1,0 +1,1 @@
+A basic calculator using JavaScript, HTML and CSS. Don't divide by zero.

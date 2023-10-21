@@ -1,13 +1,3 @@
-/**TO DO
- * Fixa alla onödiga variabler och byt till rimligare namn
- * Kolla upp strängar kontra arrayer i javascript för firstNum och secondNum
- * 
- * Fixa bugg där resultatet är konstigt efter = -tecken i vissa fall.
- * Fixa så att man inte kan dela med 0 (felmeddelande)
- * Fixa avrundningar till rimligt antal
- */
-
-
 let firstNum = [];
 let secondNum = [];
 let operatorIsClicked = false; //lite fult
@@ -91,12 +81,14 @@ function multiply(num1, num2){
     result = num1 * num2;
 }
 
-//Kan ev stoppa in logiken direkt i funktionsanrop och ta bort parseNumbers, tkr
-//dock för nuvarande att det är snyggare att dela upp det pga läslighet.
 function parseNumbers(numberToParse){
     return Number(numberToParse.join(''));
 }
 
+function snarkingOnZero() {
+    alert("Plz do not divide by zero you absolute troglodyte :)");
+    clear();
+}
 
 function operate(first, operator, second){
     switch(operator){
@@ -107,7 +99,8 @@ function operate(first, operator, second){
             return subtract(first, second);
 
         case '/':
-            return divide(first, second);
+            if(second === 0)return snarkingOnZero();
+            else return divide(first, second);
         
         case 'x':
             return multiply(first, second);
